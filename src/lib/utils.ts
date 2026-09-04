@@ -15,7 +15,7 @@
 type statut = "vu" | "a_voir" | "abandonne"
 type genres = "SF" | "Horreur" | "Thriller" | "Drame" | "Aventure"
 
-interface file {
+interface film {
     id : number 
     titre : string
     annee : number
@@ -38,7 +38,7 @@ export function formaterTitre(titre: string, annee : number): string{
   return `${titre} (${annee})`;
 }
 
-export function resume(film : file): string {
+export function resume(film : film): string {
   return `${film.titre} — ${film.annee} — ${film.note}/10 — ${film.genres.join(", ")}`;
 }
 
@@ -56,11 +56,11 @@ export function moyenne(notes : number[]): number | string {
 // find() renvoie undefined quand rien ne correspond.
 // La deuxième fonction l'ignore complètement.
 
-export function trouverParId(liste : file[], id : number): file | undefined {
+export function trouverParId(liste : film[], id : number): film | undefined {
   return liste.find((film) => film.id === id);
 }
 
-export function titreDuFilm(liste : file[], id : number): string | undefined {
+export function titreDuFilm(liste : film[], id : number): string | undefined {
   return trouverParId(liste, id)?.titre;
 }
 
@@ -68,14 +68,14 @@ export function titreDuFilm(liste : file[], id : number): string | undefined {
 // On trie par une clé passée en paramètre. Rien ne garantit que cette
 // clé existe sur les objets de la liste.
 
-export function trierPar(liste : file[], cle : keyof file ): file[]{
+export function trierPar<T>(liste: T[], cle: keyof T): T[] {
   return [...liste].sort((a, b) => (a[cle] > b[cle] ? 1 : -1));
 }
 
 // --- 5. Un paramètre optionnel jamais vérifié -------------------------
 // Appelée sans genre, cette fonction filtre sur `undefined`.
 
-export function filtrerParGenre(liste : file[], genre : genres) {
+export function filtrerParGenre(liste : film[], genre : genres) {
   return liste.filter((film) => film.genres.includes(genre));
 }
 
@@ -83,11 +83,11 @@ export function filtrerParGenre(liste : file[], genre : genres) {
 // `statut` est une chaîne quelconque : rien n'empêche d'écrire "Vu",
 // "vue" ou "à voir". Une faute de frappe passe inaperçue.
 
-export function estVu(film : file) {
+export function estVu(film : film) {
   return film.statut === "vu";
 }
 
-export function libelleStatut(film : file) {
+export function libelleStatut(film : film) {
   if (film.statut === "vu") return "Déjà vu";
   if (film.statut === "a_voir") return "À voir";
   if (film.statut === "abandonne") return "Abandonné";
@@ -111,7 +111,7 @@ export function enregistrerFavoris(favoris : number[]) {
 // On veut pouvoir modifier un ou plusieurs champs d'un film, sans avoir
 // à tous les repasser. Quel type décrit « quelques champs de Film » ?
 
-export function mettreAJour(film : file, modifications : Partial<file>) {
+export function mettreAJour(film : film, modifications : Partial<film>) {
   return { ...film, ...modifications };
 }
 
@@ -121,7 +121,7 @@ export function mettreAJour(film : file, modifications : Partial<file>) {
 
 let prochainId = 100;
 
-export function creer(nouveauFilm : Omit<file, "id"> ) {
+export function creer(nouveauFilm : Omit<film, "id"> ) {
   return { id: prochainId++, ...nouveauFilm };
 }
 
@@ -129,7 +129,7 @@ export function creer(nouveauFilm : Omit<file, "id"> ) {
 // Cette fonction modifie l'objet reçu au lieu d'en renvoyer un nouveau.
 // Le typage ne l'interdira pas — mais `readonly` peut aider.
 
-export function ajouterNote(film : file, nouvelleNote : number): file {
+export function ajouterNote(film : film, nouvelleNote : number): film {
   film.note = (film.note + nouvelleNote) / 2;
   return film;
 }
