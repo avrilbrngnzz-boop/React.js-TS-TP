@@ -2,7 +2,7 @@ export type TonBadge = "neutre" | "succes" | "info" | "attention";
 
 export interface BadgeProps {
   texte: string;
-  ton?: TonBadge;   // "neutre" par défaut
+  ton?: TonBadge;   
 }
 
 const styles: Record<TonBadge, string> = {

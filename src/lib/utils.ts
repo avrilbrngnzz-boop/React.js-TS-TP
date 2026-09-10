@@ -12,10 +12,10 @@
 // =====================================================================
 
 // --- Données de démonstration ----------------------------------------
-type statut = "vu" | "a_voir" | "abandonne"
-type genres = "SF" | "Horreur" | "Thriller" | "Drame" | "Aventure"
+export type statut = "vu" | "a_voir" | "abandonne"
+export type genres = "SF" | "Horreur" | "Thriller" | "Drame" | "Aventure"
 
-interface film {
+export interface film {
     id : number 
     titre : string
     annee : number
@@ -23,7 +23,7 @@ interface film {
     genres : genres[]
     statut : statut
 }
-export const FILMS = [
+export const FILMS : film[] = [
   { id: 1, titre: "Alien", annee: 1979, genres: ["SF", "Horreur"], note: 8.5, statut: "vu" },
   { id: 2, titre: "Blade Runner", annee: 1982, genres: ["SF", "Thriller"], note: 8.1, statut: "vu" },
   { id: 3, titre: "Arrival", annee: 2016, genres: ["SF", "Drame"], note: 7.9, statut: "a_voir" },
