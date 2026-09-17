@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { urlRecherche, type FilmOmdb, type ReponseRecherche } from "../lib/omdb";
 import { CarteFilm } from "./CarteFilm";
+import { Link } from "react-router-dom";
 
 export function RechercheFilms() {
   const [terme, setTerme] = useState("");
@@ -50,13 +51,7 @@ export function RechercheFilms() {
 
   return (
     <div className="flex flex-col gap-4">
-      <input
-        type="text"
-        value={terme}
-        onChange={(e) => setTerme(e.target.value)}
-        placeholder="Rechercher un film…"
-        className="border p-2 rounded"
-      />
+      <input type="text" value={terme} onChange={(e) => setTerme(e.target.value)} placeholder="Rechercher un film…" className="border p-2 rounded"/>
 
       {!terme && <p>Tapez un titre pour lancer la recherche.</p>}
       {chargement && <p>Chargement…</p>}
@@ -69,7 +64,9 @@ export function RechercheFilms() {
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {films.map((film) => (
             <li key={film.imdbID}>
-              <CarteFilm film={film} />
+              <Link to={`/films/${film.imdbID}`}>
+                <CarteFilm film={film} />
+              </Link>
             </li>
           ))}
         </ul>
