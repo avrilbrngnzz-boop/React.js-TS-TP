@@ -1,3 +1,25 @@
+Avril Brenon-Gianazza
+
+Ce projet est une application React permettant de rechercher des films, d’afficher leurs détails et de gérer une liste de favoris.
+
+L’objectif est de mettre en pratique React Router, les contextes, les reducers et la structuration d’une application complète.
+
+L’application utilise l’API OMDB pour récupérer les informations sur les films.
+
+Le projet respecte l’ensemble des points obligatoires du TP5.
+
+L’application propose une page d’accueil, une page de recherche, une page de détail, une page de connexion et une page de favoris.
+
+La recherche permet d’obtenir une liste de films correspondant au terme saisi.
+
+Chaque film peut être consulté sur une page dédiée affichant ses informations détaillées.
+
+Un bouton permet d’ajouter un film à la liste des favoris depuis sa page de détail.
+
+La page des favoris n’est accessible que si l’utilisateur est connecté.
+
+Une page d’erreur s’affiche lorsque l’utilisateur tente d’accéder à une route inexistante.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
